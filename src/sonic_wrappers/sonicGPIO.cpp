@@ -78,25 +78,8 @@ bool gpioConfig(){
     }
 
     /**
-    * @brief Configuração GPIO32
-    * IN1 Enable ponte H 
-    * 
-    */
-    gpio_config_t gpio32;
-    gpio32.pin_bit_mask = (1ULL << GPIO_NUM_32); /*!< Atribui mask GPIO32                 */
-    gpio32.mode = GPIO_MODE_OUTPUT;              /*!< seta modo GPIO como output          */
-    gpio32.pull_up_en = GPIO_PULLUP_DISABLE;     /*!< DesLiga GPIO pull-up                */
-    gpio32.pull_down_en = GPIO_PULLDOWN_DISABLE; /*!< Desliga GPIO pull-down              */
-    gpio32.intr_type = GPIO_INTR_DISABLE;        /*!< Desabilita Interrupção GPIO         */
-    gpio_config(&gpio32);                        /*!< Configuração final GPIO por ponteiro*/
-
-    if(gpio_config(&gpio32) == ESP_ERR_INVALID_ARG){
-        return false;
-    }
-
-    /**
     * @brief Configuração GPIO33
-    * IN2 Enable ponte H 
+    * IN1 Enable ponte H 
     * 
     */
     gpio_config_t gpio33;
@@ -112,25 +95,25 @@ bool gpioConfig(){
     }
 
     /**
-    * @brief Configuração GPIO25
-    * IN3 Enable ponte H 
+    * @brief Configuração GPIO32
+    * IN2 Enable ponte H 
     * 
     */
-    gpio_config_t gpio25;
-    gpio25.pin_bit_mask = (1ULL << GPIO_NUM_25); /*!< Atribui mask GPIO25                 */
-    gpio25.mode = GPIO_MODE_OUTPUT;              /*!< seta modo GPIO como output          */
-    gpio25.pull_up_en = GPIO_PULLUP_DISABLE;     /*!< DesLiga GPIO pull-up                */
-    gpio25.pull_down_en = GPIO_PULLDOWN_DISABLE; /*!< Desliga GPIO pull-down              */
-    gpio25.intr_type = GPIO_INTR_DISABLE;        /*!< Desabilita Interrupção GPIO         */
-    gpio_config(&gpio25);                        /*!< Configuração final GPIO por ponteiro*/
+    gpio_config_t gpio32;
+    gpio32.pin_bit_mask = (1ULL << GPIO_NUM_32); /*!< Atribui mask GPIO32                 */
+    gpio32.mode = GPIO_MODE_OUTPUT;              /*!< seta modo GPIO como output          */
+    gpio32.pull_up_en = GPIO_PULLUP_DISABLE;     /*!< DesLiga GPIO pull-up                */
+    gpio32.pull_down_en = GPIO_PULLDOWN_DISABLE; /*!< Desliga GPIO pull-down              */
+    gpio32.intr_type = GPIO_INTR_DISABLE;        /*!< Desabilita Interrupção GPIO         */
+    gpio_config(&gpio32);                        /*!< Configuração final GPIO por ponteiro*/
 
-    if(gpio_config(&gpio25) == ESP_ERR_INVALID_ARG){
+    if(gpio_config(&gpio32) == ESP_ERR_INVALID_ARG){
         return false;
     }
 
     /**
     * @brief Configuração GPIO26
-    * IN4 Enable ponte H 
+    * IN3 Enable ponte H 
     * 
     */
     gpio_config_t gpio26;
@@ -142,6 +125,23 @@ bool gpioConfig(){
     gpio_config(&gpio26);                        /*!< Configuração final GPIO por ponteiro*/
 
     if(gpio_config(&gpio26) == ESP_ERR_INVALID_ARG){
+        return false;
+    }
+
+    /**
+    * @brief Configuração GPIO25
+    * IN4 Enable ponte H 
+    * 
+    */
+    gpio_config_t gpio25;
+    gpio25.pin_bit_mask = (1ULL << GPIO_NUM_25); /*!< Atribui mask GPIO25                 */
+    gpio25.mode = GPIO_MODE_OUTPUT;              /*!< seta modo GPIO como output          */
+    gpio25.pull_up_en = GPIO_PULLUP_DISABLE;     /*!< DesLiga GPIO pull-up                */
+    gpio25.pull_down_en = GPIO_PULLDOWN_DISABLE; /*!< Desliga GPIO pull-down              */
+    gpio25.intr_type = GPIO_INTR_DISABLE;        /*!< Desabilita Interrupção GPIO         */
+    gpio_config(&gpio25);                        /*!< Configuração final GPIO por ponteiro*/
+
+    if(gpio_config(&gpio25) == ESP_ERR_INVALID_ARG){
         return false;
     }
 

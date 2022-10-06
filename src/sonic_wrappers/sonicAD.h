@@ -11,6 +11,10 @@
 extern "C" {
 #endif
 
+
+#ifndef SONIC_AD_H
+#define SONIC_AD_H
+
 #define SENSOR_CORRENTE_A GPIO_NUM_34 //SCA
 #define SENSOR_CORRENTE_B GPIO_NUM_35 //SCB
 
@@ -25,6 +29,7 @@ extern "C" {
  */
 void adConfig();
 
+#endif
 
 #ifdef __cplusplus
 }

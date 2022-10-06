@@ -12,6 +12,9 @@
 extern "C" {
 #endif
 
+#ifndef SONIC_PWM_H
+#define SONIC_PWM_H
+
 #define PWMA GPIO_NUM_23 //PWMA
 #define PWMB GPIO_NUM_19 //PWMB
 
@@ -38,6 +41,7 @@ void pwmASetDuty(float duty);
  */
 void pwmBSetDuty(float duty);
 
+#endif
 
 #ifdef __cplusplus
 }
