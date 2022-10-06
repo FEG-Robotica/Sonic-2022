@@ -11,8 +11,8 @@ void adConfig(){
     analogReadResolution(12);       /*!< Resolução de 12 bits (0 - 4095) */
     analogSetWidth(12);
     analogSetAttenuation(ADC_11db); /*!< Resolução de 12 bits (0 - 4095) */
-    adcAttachPin(GPIO_NUM_36);      /*!< Atribui ADC aos pinos           */
-    adcAttachPin(GPIO_NUM_39);
+    adcAttachPin(SENSOR_DE_LINHA_A);      /*!< Atribui ADC aos pinos           */
+    adcAttachPin(SENSOR_DE_LINHA_B);
     adcAttachPin(SENSOR_CORRENTE_A);
     adcAttachPin(SENSOR_CORRENTE_B);
 

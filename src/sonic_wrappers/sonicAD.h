@@ -17,6 +17,8 @@ extern "C" {
 
 #define SENSOR_CORRENTE_A GPIO_NUM_34 //SCA
 #define SENSOR_CORRENTE_B GPIO_NUM_35 //SCB
+#define SENSOR_DE_LINHA_A GPIO_NUM_36
+#define SENSOR_DE_LINHA_B GPIO_NUM_39
 
 /**
  * @brief Configuração ADC sonic

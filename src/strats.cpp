@@ -1,7 +1,12 @@
 #include "strats.h"
+void forward_test(Motor right, Motor left)
+{
+
+}
 
 void follower_strat(Motor right, Motor left, int duty_cicle)
 {
+    Serial.println("Follower");
     if(gpio_get_level(SENSOR_LAT_DIR) && !gpio_get_level(SENSOR_FRONT_DIR))
     {
         right.move(duty_cicle, BW);
@@ -67,4 +72,67 @@ void lock_recover(Motor right, Motor left,int recover_time)
     left.move(0, BW);
     delay(recover_time);
 
+}
+
+bool arch(Motor right, Motor left, int speed, int time,direction_arch_t direction)
+{
+    if(direction == LEFT_ARCH)
+    {
+        right.move(speed, FW);
+        left.move(speed*0.7, FW);
+        delay(time);
+    }
+
+    if(direction == RIGHT_ARCH)
+    {
+        right.move(speed*0.7, FW);
+        left.move(speed, FW);
+        delay(time);
+    }
+
+    return false;
+}
+
+void sensor_test()
+{
+    Serial.println("Sensor test");
+    if(gpio_get_level(SENSOR_LAT_DIR) && !gpio_get_level(SENSOR_FRONT_DIR))
+    {
+        gpio_set_level(GPIO_NUM_2, HIGH);
+    }
+
+    if(gpio_get_level(SENSOR_LAT_DIR) && gpio_get_level(SENSOR_FRONT_DIR))
+    {
+        gpio_set_level(GPIO_NUM_2, HIGH);
+    }
+
+    if(gpio_get_level(SENSOR_FRONT_DIR) && !gpio_get_level(SENSOR_FRONT_ESQ))
+    {
+        gpio_set_level(GPIO_NUM_2, HIGH);
+    }
+
+    if(gpio_get_level(SENSOR_FRONT_DIR) && gpio_get_level(SENSOR_FRONT_ESQ))
+    {
+        gpio_set_level(GPIO_NUM_2, HIGH);
+    }
+
+    if(gpio_get_level(SENSOR_FRONT_ESQ) && !gpio_get_level(SENSOR_FRONT_DIR))
+    {
+        gpio_set_level(GPIO_NUM_2, HIGH);
+    }
+
+    if(gpio_get_level(SENSOR_FRONT_ESQ) && gpio_get_level(SENSOR_LAT_ESQ))
+    {
+        gpio_set_level(GPIO_NUM_2, HIGH);
+    }
+
+    if(!gpio_get_level(SENSOR_LAT_ESQ) && gpio_get_level(SENSOR_FRONT_ESQ))
+    {
+        gpio_set_level(GPIO_NUM_2, HIGH);;
+    }
+
+    if(!gpio_get_level(SENSOR_LAT_ESQ) && !gpio_get_level(SENSOR_FRONT_ESQ) && !gpio_get_level(SENSOR_FRONT_DIR) && ! gpio_get_level(SENSOR_LAT_DIR))
+    {
+        gpio_set_level(GPIO_NUM_2, LOW);
+    }
 }

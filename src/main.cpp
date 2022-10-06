@@ -13,6 +13,11 @@
 command_t command = STOP_CMD;
 std::string recv = "Received: ";
 
+int speed_arch = 0;
+direction_arch_t direction_arch = RIGHT_ARCH;
+int time_arch = 200;
+bool first_arch = true;
+
 class MyCallbacks : public BLECharacteristicCallbacks
 {
   void onWrite(BLECharacteristic *pCharacteristic)
@@ -34,6 +39,44 @@ class MyCallbacks : public BLECharacteristicCallbacks
     if (value == "BUSCA")
     {
       command = FOLLOWER_STRAT_CMD;
+      pCharacteristic->setValue(recv + value);
+    }
+
+    if (value.substr(0, 4) == "ARCH")
+    {
+      Serial.println(value.substr(0, 4).c_str());
+      speed_arch = std::stoi(value.substr(4,2));
+      time_arch = std::stoi(value.substr(6,3));
+
+      if(value.substr(10,1) == "0")
+      {
+        direction_arch == RIGHT_ARCH;
+      }
+
+      if(value.substr(10,1) == "1")
+      {
+        direction_arch == LEFT_ARCH;
+      }
+
+      command = ARCH_CMD;
+      pCharacteristic->setValue(recv + value);
+    }
+
+    if (value == "SENSOR")
+    {
+      command = SENSOR_TEST_CMD;
+      pCharacteristic->setValue(recv + value);
+    }
+
+    if (value == "LINE")
+    {
+      command = LINE_TEST_CMD;
+      pCharacteristic->setValue(recv + value);
+    }
+
+    if (value == "FORWARD")
+    {
+      command = FORWARD_TEST_CMD;
       pCharacteristic->setValue(recv + value);
     }
   }
@@ -74,7 +117,7 @@ void loop()
   Motor right(IN1, IN2, PWMA);
   Motor left(IN3, IN4, PWMB);
 
-  Serial.println("oi");
+  Serial.println("standby");
   delay(100);
 
   if (command == LED_CMD)
@@ -94,6 +137,69 @@ void loop()
     {
       follower_strat(right, left, 100);
       gpio_set_level(GPIO_NUM_2, HIGH);
+      if (command == STOP_CMD)
+      {
+        break;
+      }
+    }
+  }
+
+  if (command == ARCH_CMD)
+  {
+    while (1)
+    {
+
+      while(first_arch)
+      {
+        Serial.print(speed_arch);
+        Serial.print(" ");
+        Serial.print(time_arch);
+        Serial.print(" ");
+        Serial.println(direction_arch);
+        first_arch = arch(right, left, speed_arch, time_arch, direction_arch);
+      }
+
+      follower_strat(right, left, 100);
+      gpio_set_level(GPIO_NUM_2, HIGH);
+      if (command == STOP_CMD)
+      {
+        break;
+      }
+    }
+  }
+
+  if(command == FORWARD_TEST_CMD)
+  {
+    while(1)
+    {
+      Serial.println("Forward");
+      right.move(30, FW);
+      left.move(30, FW);
+
+      if (command == STOP_CMD)
+      {
+        break;
+      }
+    }
+  }
+  
+  if(command == LINE_TEST_CMD)
+  {
+    while(1)
+    {
+      Serial.println("line");
+      if(analogRead(SENSOR_DE_LINHA_A) < 1000)
+      {
+        right.move(100,BW);
+        left.move(100,BW);
+      }
+
+      if(analogRead(SENSOR_DE_LINHA_B) < 1000)
+      {
+        right.move(100,BW);
+        left.move(100,BW);
+      }
+
       if (command == STOP_CMD)
       {
         break;
