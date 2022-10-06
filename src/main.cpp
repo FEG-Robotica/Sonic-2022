@@ -2,7 +2,6 @@
 #include "sonic_wrappers/sonicGPIO.h"
 #include "sonic_wrappers/sonicAD.h"
 #include "sonic_wrappers/sonicPWM.h"
-#include "utils.h"
 #include <BLEDevice.h>
 #include <BLEUtils.h>
 #include <BLEServer.h>
@@ -11,7 +10,7 @@
 #define SERVICE_UUID "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
 #define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
 
-std::string comando = "";
+command_t command = STOP_CMD;
 std::string recv = "Received: ";
 
 class MyCallbacks : public BLECharacteristicCallbacks
@@ -22,19 +21,19 @@ class MyCallbacks : public BLECharacteristicCallbacks
 
     if (value == "LED")
     {
-      comando = "LED";
+      command = LED_CMD;
       pCharacteristic->setValue(recv + value);
     }
 
     if (value == "P")
     {
-      comando = "Parar";
+      command = STOP_CMD;
       pCharacteristic->setValue(recv + value);
     }
 
     if (value == "BUSCA")
     {
-      comando = "Busca";
+      command = FOLLOWER_STRAT_CMD;
       pCharacteristic->setValue(recv + value);
     }
   }
@@ -43,7 +42,7 @@ class MyCallbacks : public BLECharacteristicCallbacks
 void setup()
 {
 
-  Serial.begin(115200);
+  Serial.begin(9600);
   pinMode(2, OUTPUT);
   gpioConfig();
   adConfig();
@@ -75,38 +74,34 @@ void loop()
   Motor right(IN1, IN2, PWMA);
   Motor left(IN3, IN4, PWMB);
 
-  if (Serial.available())
-  {
-    Serial.println("oi");
-  }
+  Serial.println("oi");
+  delay(100);
 
-  if (comando == "LED")
+  if (command == LED_CMD)
   {
     while (1)
     {
-
-      Serial.print(comando.c_str()[1]);
-      if (comando == "Parar")
+      if (command == STOP_CMD)
       {
         break;
       }
     }
   }
 
-  if (comando == "Busca")
+  if (command == FOLLOWER_STRAT_CMD)
   {
     while (1)
     {
       follower_strat(right, left, 100);
       gpio_set_level(GPIO_NUM_2, HIGH);
-      if (comando == "Parar")
+      if (command == STOP_CMD)
       {
         break;
       }
     }
   }
 
-  if (comando == "Parar")
+  if (command == STOP_CMD)
   {
     pwmASetDuty(0);
     pwmBSetDuty(0);

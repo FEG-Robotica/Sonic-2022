@@ -150,17 +150,18 @@ bool gpioConfig(){
     * DISPA Primeiro bit BCD
     * 
     */
-    gpio_config_t gpio3;
-    gpio3.pin_bit_mask = (1ULL << GPIO_NUM_3); /*!< Atribui mask GPIO3                   */
-    gpio3.mode = GPIO_MODE_OUTPUT;              /*!< seta modo GPIO como output          */
-    gpio3.pull_up_en = GPIO_PULLUP_DISABLE;     /*!< DesLiga GPIO pull-up                */
-    gpio3.pull_down_en = GPIO_PULLDOWN_DISABLE; /*!< Desliga GPIO pull-down              */
-    gpio3.intr_type = GPIO_INTR_DISABLE;        /*!< Desabilita Interrupção GPIO         */
-    gpio_config(&gpio3);                        /*!< Configuração final GPIO por ponteiro*/
+   
+    // gpio_config_t gpio3;
+    // gpio3.pin_bit_mask = (1ULL << GPIO_NUM_3); /*!< Atribui mask GPIO3                   */
+    // gpio3.mode = GPIO_MODE_OUTPUT;              /*!< seta modo GPIO como output          */
+    // gpio3.pull_up_en = GPIO_PULLUP_DISABLE;     /*!< DesLiga GPIO pull-up                */
+    // gpio3.pull_down_en = GPIO_PULLDOWN_DISABLE; /*!< Desliga GPIO pull-down              */
+    // gpio3.intr_type = GPIO_INTR_DISABLE;        /*!< Desabilita Interrupção GPIO         */
+    // gpio_config(&gpio3);                        /*!< Configuração final GPIO por ponteiro*/
 
-    if(gpio_config(&gpio3) == ESP_ERR_INVALID_ARG){
-        return false;
-    }
+    // if(gpio_config(&gpio3) == ESP_ERR_INVALID_ARG){
+    //     return false;
+    // }
 
     /**
     * @brief Configuração GPIO04
@@ -201,7 +202,7 @@ bool gpioConfig(){
     * DISPD Quarto bit BCD
     * 
     */
-    pinMode(GPIO_NUM_1,OUTPUT);
+    //pinMode(GPIO_NUM_1,OUTPUT);
 
     /**
     * @brief Configuração GPIO14

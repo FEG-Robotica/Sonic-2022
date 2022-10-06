@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "Motor.h"
 
 
 Motor::Motor(gpio_num_t input_a, gpio_num_t input_b, gpio_num_t pwm)
