@@ -80,6 +80,29 @@ class MyCallbacks : public BLECharacteristicCallbacks
       pCharacteristic->setValue(recv + value);
     }
   }
+
+  void onRead(BLECharacteristic *pCharacteristic)
+  {
+    if(command = SENSOR_TEST_CMD)
+    {
+      int leitura_lat_esq = gpio_get_level(SENSOR_LAT_ESQ);
+      int leitura_front_esq = gpio_get_level(SENSOR_FRONT_ESQ);
+      int leitura_front_dir = gpio_get_level(SENSOR_FRONT_DIR);
+      int leitura_lat_dir = gpio_get_level(SENSOR_LAT_DIR);
+
+      std::string sensores = "LE:";
+      sensores.append(std::to_string(leitura_lat_esq));
+      sensores.append(" FE:");
+      sensores.append(std::to_string(leitura_front_esq));
+      sensores.append(" FD:");
+      sensores.append(std::to_string(leitura_front_dir));
+      sensores.append(" LD:");
+      sensores.append(std::to_string(leitura_lat_dir));
+
+      pCharacteristic->setValue(sensores);
+      Serial.println(sensores.c_str());
+    }
+  }
 };
 
 void setup()
@@ -90,6 +113,8 @@ void setup()
   gpioConfig();
   adConfig();
   pwmConfig();
+
+  pinMode(SENSOR_FRONT_DIR, INPUT_PULLDOWN);
 
   BLEDevice::init("Sonic");
   BLEServer *pServer = BLEDevice::createServer();
