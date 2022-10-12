@@ -44,7 +44,7 @@ class MyCallbacks : public BLECharacteristicCallbacks
 
     if (value.substr(0, 4) == "ARCH")
     {
-      first_arch = true;
+      
       Serial.println(value.substr(0, 4).c_str());
       speed_arch = std::stoi(value.substr(4,2));
       time_arch = std::stoi(value.substr(6,3));
@@ -148,7 +148,6 @@ void loop()
 
   if (command == LED_CMD)
   {
-    gpio_set_level(GPIO_NUM_2, HIGH);
     while (1)
     {
       if (command == STOP_CMD)

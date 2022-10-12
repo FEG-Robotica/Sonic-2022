@@ -17,7 +17,7 @@ void follower_strat(Motor right, Motor left, int duty_cicle)
         }
     else
     {
-        Serial.println("Follower");
+        //Serial.println("Follower");
         if (gpio_get_level(SENSOR_LAT_DIR) && !gpio_get_level(SENSOR_FRONT_DIR))
         {
             right.move(duty_cicle, BW);
