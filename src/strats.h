@@ -31,6 +31,8 @@ void lock_recover(Motor right, Motor left,int recover_time);
 
 bool arch(Motor right, Motor left, int speed, int time, direction_arch_t direction);
 
+void line_detected(Motor right, Motor left);
+
 #endif
 
 #ifdef __cplusplus
