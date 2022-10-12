@@ -44,7 +44,7 @@ class MyCallbacks : public BLECharacteristicCallbacks
 
     if (value.substr(0, 4) == "ARCH")
     {
-      
+      first_arch = true;
       Serial.println(value.substr(0, 4).c_str());
       speed_arch = std::stoi(value.substr(4,2));
       time_arch = std::stoi(value.substr(6,3));

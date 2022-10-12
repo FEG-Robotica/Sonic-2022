@@ -39,7 +39,7 @@ void follower_strat(Motor right, Motor left, int duty_cicle)
         if (gpio_get_level(SENSOR_FRONT_DIR) && gpio_get_level(SENSOR_FRONT_ESQ))
         {
             unsigned long int last_millis = millis();
-            while (millis() - last_millis < 3000)
+            while (millis() - last_millis < 4000)
             {
                 right.move(duty_cicle, FW);
                 left.move(duty_cicle, FW);
@@ -77,7 +77,7 @@ void follower_strat(Motor right, Motor left, int duty_cicle)
 void lock_recover(Motor right, Motor left, int recover_time)
 {
     unsigned long int last_millis = millis();
-
+    Serial.println("lock");
     right.move(100, BW);
     left.move(0, BW);
     delay(recover_time);
