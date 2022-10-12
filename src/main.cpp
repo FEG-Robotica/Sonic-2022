@@ -106,6 +106,10 @@ class MyCallbacks : public BLECharacteristicCallbacks
   }
 };
 
+Motor right(IN1, IN2, PWMA);
+Motor left(IN3, IN4, PWMB);
+
+
 void setup()
 {
 
@@ -139,9 +143,6 @@ void setup()
 void loop()
 {
   gpio_set_level(GPIO_NUM_2, LOW);
-
-  Motor right(IN1, IN2, PWMA);
-  Motor left(IN3, IN4, PWMB);
 
   Serial.println("standby");
   delay(100);
