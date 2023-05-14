@@ -1,3 +1,9 @@
+#
+# File:   push_git.ps1
+# Author: Gian
+#
+# Created on 14 de Maio de 2023, 16:08
+#
 # Para adicionar o repositorio, copie as linhas abaixo!
 # Obs: pode ser necessário configurar usuario e email antes de enviar o primeiro código com as linhas abaixo:
 #  git config --global user.email "you@example.com"
